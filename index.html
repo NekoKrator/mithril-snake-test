@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake Game – Mithril Development Test</title>
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="header__title">Snake Game — Mithril Development Test Task</h1>
+      <div class="header__score-panel">
+        <span class="score-panel__score">Score <span id="score">0</span></span>
+        <span class="score-panel__high-score">High Score</span id='high-score'>0</span></span>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="settings">
+        <label for="board-size" class="settings__label">Board Size</label>
+        <select id="board-size" class="settings__select">
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+        </select>
+        <button id="start-btn" class="settings__button">Start Game</button>
+      </section>
+
+      <section id="game-board" class="game-board"></section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__hint">Controls: Arrow keys, WASD, or swipe on mobile</p>
+    </footer>
+  </body>
+</html>
