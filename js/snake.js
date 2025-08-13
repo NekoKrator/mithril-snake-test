@@ -29,4 +29,22 @@ export class Snake {
     this.body.unshift(nextHead);
     this.body.pop();
   }
+
+  setDirection(newDirection) {
+    const opposites = {
+      up: 'down',
+      down: 'up',
+      left: 'right',
+      right: 'left',
+    };
+
+    if (newDirection !== opposites[this.direction]) {
+      this.direction = newDirection;
+    }
+  }
+
+  grow() {
+    const tail = this.body[this.body.length - 1];
+    this.body.push({ ...tail });
+  }
 }
