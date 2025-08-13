@@ -64,3 +64,9 @@ export function renderSnake(snake) {
     }
   }
 }
+
+export function clearBoard(cells) {
+  for (const cell of cells) {
+    cell.classList.remove('snake-head', 'snake-body');
+  }
+}
