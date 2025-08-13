@@ -1,3 +1,5 @@
+import { getCellIndex } from '../lib/getCellIndex.js';
+
 export function rendererBoard(cellsPerRow) {
   const boardElement = document.querySelector('#game-board');
   boardElement.innerHTML = '';
@@ -19,14 +21,11 @@ export function rendererBoard(cellsPerRow) {
   return cells;
 }
 
-export function renderSnake(snake) {
-  const cells = document.querySelectorAll('.game-board__cell');
+export function renderSnake(snake, cells) {
   const cellsPerRow = Math.sqrt(cells.length);
 
   for (let i = 0; i < snake.body.length; i++) {
     const segment = snake.body[i];
-    const x = segment.x;
-    const y = segment.y;
 
     /**
      * У цьому проєкті, як і в класичній змійці, я використовував математичну модель координат, де точка (0, 0) знаходиться в лівому нижньому куті,
@@ -50,11 +49,10 @@ export function renderSnake(snake) {
      * 1 | (0,1)(1,1)(2,1)
      * 2 | (0,2)(1,2)(2,2) X
      *
-     * Тому для коректного рендерингу координату Y потрібно інвертувати:
+     * Тому для коректного рендерингу координату Y потрібно інвертувати
      */
 
-    const invertedY = cellsPerRow - 1 - y;
-    const index = invertedY * cellsPerRow + x;
+    const index = getCellIndex(segment.x, segment.y, cellsPerRow);
     const cell = cells[index];
 
     if (i === 0) {
