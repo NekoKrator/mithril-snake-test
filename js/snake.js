@@ -2,9 +2,9 @@ export class Snake {
   constructor(boardCenter) {
     this.direction = 'right';
     this.body = [
-      { x: boardCenter.x, y: boardCenter.y },
-      { x: boardCenter.x - 1, y: boardCenter.y },
-      { x: boardCenter.x - 2, y: boardCenter.y },
+      { x: boardCenter.x, y: boardCenter.y, type: 'head', dir: 'right' },
+      { x: boardCenter.x - 1, y: boardCenter.y, type: 'body', dir: 'right' },
+      { x: boardCenter.x - 2, y: boardCenter.y, type: 'tail', dir: 'right' },
     ];
   }
 
@@ -26,8 +26,16 @@ export class Snake {
         nextHead = { x: head.x + 1, y: head.y };
     }
 
+    head.type = 'body';
+    head.dir = this.direction;
+
     this.body.unshift(nextHead);
     this.body.pop();
+  }
+
+  getDirection(from, to) {
+    if (from.x === to.x) return from.y > to.y ? 'up' : 'down';
+    if (from.y === to.y) return from.x > to.x ? 'left' : 'right';
   }
 
   setDirection(newDirection) {

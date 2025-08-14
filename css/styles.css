@@ -136,6 +136,51 @@ body {
   text-align: center;
 }
 
+.modal {
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+  border: 2px solid #81c784;
+}
+
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal__content {
+  text-align: center;
+}
+
+.modal__title {
+  color: #388e3c;
+  margin-bottom: 10px;
+}
+
+.modal__reason {
+  color: #d32f2f;
+  margin-bottom: 10px;
+}
+
+.modal__score {
+  color: #4caf50;
+  margin-bottom: 20px;
+}
+
+.modal__button {
+  padding: 8px 16px;
+  border: 1px solid #a5d6a7;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #2e7d32;
+  cursor: pointer;
+}
+
+.modal__button:hover {
+  background: #e8f5e9;
+}
+
 /* for phones */
 @media (max-width: 600px) {
   .header__title {

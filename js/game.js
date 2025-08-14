@@ -23,6 +23,17 @@ function updateScore(points = 10) {
   if (score > highScore) highScoreEl.textContent = score;
 }
 
+function showGameOverModal(reason, score) {
+  const modal = document.getElementById('game-over-modal');
+  const reasonEl = document.getElementById('game-over-reason');
+  const scoreEl = document.getElementById('modal-final-score');
+
+  reasonEl.textContent = reason;
+  scoreEl.textContent = score;
+
+  modal.showModal();
+}
+
 class Game {
   constructor(boardConfig) {
     this.boardConfig = boardConfig;
@@ -61,7 +72,13 @@ class Game {
     if (this.collisions.checkGameOver()) {
       clearInterval(this.gameLoop);
       this.gameLoop = null;
-      alert(`Game Over! Ваш счёт: ${this.snake.body.length - 3}`);
+
+      const reason = this.collisions.isWallCollision()
+        ? 'You hit the wall!'
+        : 'You hit yourself!';
+      const score = this.snake.body.length - 3;
+
+      showGameOverModal(reason, score);
       return;
     }
 
@@ -82,9 +99,15 @@ class Game {
     if (head.x === food.x && head.y === food.y) {
       this.snake.grow();
       this.food.spawnAndRender(this.cells);
-      updateScore(10);
+      updateScore(1);
     }
   }
 }
 
 document.querySelector('#start-btn').addEventListener('click', startGame);
+
+document.querySelector('#restart-btn').addEventListener('click', () => {
+  const modal = document.querySelector('#game-over-modal');
+  modal.close();
+  document.querySelector('#start-btn').click();
+});
