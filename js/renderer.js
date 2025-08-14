@@ -7,6 +7,11 @@ export function rendererBoard(cellsPerRow) {
   const totalCells = cellsPerRow * cellsPerRow;
   const cells = [];
 
+  const cellSize = 20; // px
+  const boardSize = cellsPerRow * cellSize;
+  boardElement.style.width = `${boardSize}px`;
+  boardElement.style.height = `${boardSize}px`;
+
   boardElement.style.display = 'grid';
   boardElement.style.gridTemplateColumns = `repeat(${cellsPerRow}, 1fr)`;
   boardElement.style.gridTemplateRows = `repeat(${cellsPerRow}, 1fr)`;
@@ -20,7 +25,6 @@ export function rendererBoard(cellsPerRow) {
 
   return cells;
 }
-
 export function renderSnake(snake, cells) {
   const cellsPerRow = Math.sqrt(cells.length);
 
