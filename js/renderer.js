@@ -3,16 +3,11 @@ import { getCellIndex } from '../lib/getCellIndex.js';
 export function rendererBoard(cellsPerRow) {
   const boardElement = document.querySelector('#game-board');
   boardElement.innerHTML = '';
-
   const totalCells = cellsPerRow * cellsPerRow;
   const cells = [];
 
-  const cellSize = 20; // px
-  const boardSize = cellsPerRow * cellSize;
-  boardElement.style.width = `${boardSize}px`;
-  boardElement.style.height = `${boardSize}px`;
+  boardElement.style.setProperty('--cells-per-row', cellsPerRow);
 
-  boardElement.style.display = 'grid';
   boardElement.style.gridTemplateColumns = `repeat(${cellsPerRow}, 1fr)`;
   boardElement.style.gridTemplateRows = `repeat(${cellsPerRow}, 1fr)`;
 
@@ -25,6 +20,7 @@ export function rendererBoard(cellsPerRow) {
 
   return cells;
 }
+
 export function renderSnake(snake, cells) {
   const cellsPerRow = Math.sqrt(cells.length);
 
@@ -85,12 +81,14 @@ export function clearBoard(cells) {
 export function updateSnakeOnBoard(snake, cells, boardConfig) {
   const tail = snake.body[snake.body.length - 1];
   const tailIndex = getCellIndex(tail.x, tail.y, boardConfig.cellsPerRow);
+
   if (tailIndex >= 0 && tailIndex < cells.length) {
     cells[tailIndex].classList.remove('snake-body', 'snake-head');
   }
 
   const head = snake.body[0];
   const headIndex = getCellIndex(head.x, head.y, boardConfig.cellsPerRow);
+
   if (headIndex >= 0 && headIndex < cells.length) {
     cells[headIndex].classList.add('snake-head');
   }
@@ -102,6 +100,7 @@ export function updateSnakeOnBoard(snake, cells, boardConfig) {
       prevHead.y,
       boardConfig.cellsPerRow
     );
+
     if (prevHeadIndex >= 0 && prevHeadIndex < cells.length) {
       cells[prevHeadIndex].classList.remove('snake-head');
       cells[prevHeadIndex].classList.add('snake-body');
