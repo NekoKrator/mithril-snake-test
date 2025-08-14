@@ -5,18 +5,20 @@ export class Controls {
   }
 
   handleDirectionInput(event) {
+    const code = event.code;
+
     const directionMap = {
       ArrowUp: 'up',
       ArrowDown: 'down',
       ArrowLeft: 'left',
       ArrowRight: 'right',
-      w: 'up',
-      s: 'down',
-      a: 'left',
-      d: 'right',
+      KeyW: 'up',
+      KeyS: 'down',
+      KeyA: 'left',
+      KeyD: 'right',
     };
 
-    const direction = directionMap[event.key].toLowerCase();
+    const direction = directionMap[code];
 
     if (direction) {
       event.preventDefault();
