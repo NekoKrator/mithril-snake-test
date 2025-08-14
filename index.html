@@ -34,5 +34,14 @@
     <footer class="footer">
       <p class="footer__hint">Controls: Arrow keys, WASD, or swipe on mobile</p>
     </footer>
+
+    <dialog id="game-over-modal" class="modal">
+      <div class="modal__content">
+        <h2 class="modal__title">Game Over!</h2>
+        <p class="modal__reason" id="game-over-reason">You hit the wall!</p>
+        <p class="modal__score">Score: <span id="modal-final-score">0</span></p>
+        <button id="restart-btn" class="modal__button">Start Again</button>
+      </div>
+    </dialog>
   </body>
 </html>
