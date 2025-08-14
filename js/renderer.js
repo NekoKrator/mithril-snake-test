@@ -53,6 +53,9 @@ export function renderSnake(snake, cells) {
      */
 
     const index = getCellIndex(segment.x, segment.y, cellsPerRow);
+
+    if (index < 0 || index >= cells.length) continue;
+
     const cell = cells[index];
 
     if (i === 0) {
@@ -63,8 +66,41 @@ export function renderSnake(snake, cells) {
   }
 }
 
-export function clearBoard(cells) {
+export function clearSnake(cells) {
   for (const cell of cells) {
     cell.classList.remove('snake-head', 'snake-body');
+  }
+}
+
+export function clearBoard(cells) {
+  for (const cell of cells) {
+    cell.classList.remove('snake-head', 'snake-body', 'food');
+  }
+}
+
+export function updateSnakeOnBoard(snake, cells, boardConfig) {
+  const tail = snake.body[snake.body.length - 1];
+  const tailIndex = getCellIndex(tail.x, tail.y, boardConfig.cellsPerRow);
+  if (tailIndex >= 0 && tailIndex < cells.length) {
+    cells[tailIndex].classList.remove('snake-body', 'snake-head');
+  }
+
+  const head = snake.body[0];
+  const headIndex = getCellIndex(head.x, head.y, boardConfig.cellsPerRow);
+  if (headIndex >= 0 && headIndex < cells.length) {
+    cells[headIndex].classList.add('snake-head');
+  }
+
+  if (snake.body.length > 1) {
+    const prevHead = snake.body[1];
+    const prevHeadIndex = getCellIndex(
+      prevHead.x,
+      prevHead.y,
+      boardConfig.cellsPerRow
+    );
+    if (prevHeadIndex >= 0 && prevHeadIndex < cells.length) {
+      cells[prevHeadIndex].classList.remove('snake-head');
+      cells[prevHeadIndex].classList.add('snake-body');
+    }
   }
 }
