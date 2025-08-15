@@ -5,14 +5,21 @@ import { Controls } from './controls.js';
 import { Food } from './food.js';
 import { Collisions } from './collisions.js';
 
+let game = null;
+
 function startGame() {
   const boardName = document.querySelector('#board-size').value;
   const boardConfig = getBoardConfig(boardName);
-  const game = new Game(boardConfig);
+
+  if (game) {
+    game.destroy();
+  }
+
+  game = new Game(boardConfig);
   game.initGame();
 }
 
-function updateScore(points = 10) {
+function updateScore(points = 1) {
   const scoreEl = document.getElementById('score');
   let score = parseInt(scoreEl.textContent, 10) || 0;
   score += points;
@@ -101,6 +108,16 @@ class Game {
       this.food.spawnAndRender(this.cells);
       updateScore(1);
     }
+  }
+
+  destroy() {
+    if (this.gameLoop) {
+      clearInterval(this.gameLoop);
+      this.gameLoop = null;
+    }
+
+    this.controls?.destroy();
+    this.controls = null;
   }
 }
 

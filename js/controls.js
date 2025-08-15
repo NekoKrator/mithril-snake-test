@@ -1,12 +1,11 @@
 export class Controls {
   constructor(snake) {
     this.snake = snake;
-    document.addEventListener('keydown', (e) => this.handleDirectionInput(e));
+    this.onKeyDown = this.onKeyDown.bind(this);
+    document.addEventListener('keydown', this.onKeyDown);
   }
 
-  handleDirectionInput(event) {
-    const code = event.code;
-
+  onKeyDown(event) {
     const directionMap = {
       ArrowUp: 'up',
       ArrowDown: 'down',
@@ -18,11 +17,14 @@ export class Controls {
       KeyD: 'right',
     };
 
-    const direction = directionMap[code];
-
+    const direction = directionMap[event.code];
     if (direction) {
       event.preventDefault();
       this.snake.setDirection(direction);
     }
+  }
+
+  destroy() {
+    document.removeEventListener('keydown', this.onKeyDown);
   }
 }
