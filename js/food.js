@@ -1,5 +1,8 @@
 import { getRandomFoodPosition } from '../lib/getRandomFoodPosition.js';
 import { getCellIndex } from '../lib/getCellIndex.js';
+import { CSS_CLASSES } from '../lib/const.js';
+
+const { FOOD } = CSS_CLASSES;
 
 export class Food {
   constructor(cellsPerRow, snake) {
@@ -16,13 +19,13 @@ export class Food {
   render(cells) {
     const index = this.getCellIndex();
     if (index < 0 || index >= cells.length) return;
-    cells[index].classList.add('food');
+    cells[index].classList.add(FOOD);
   }
 
   clear(cells) {
     const index = this.getCellIndex();
     if (index >= 0 && index < cells.length) {
-      cells[index].classList.remove('food');
+      cells[index].classList.remove(FOOD);
     }
   }
 

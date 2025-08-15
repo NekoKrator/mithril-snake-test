@@ -1,3 +1,5 @@
+import { OPPOSITE_DIRECTIONS } from '../lib/const.js';
+
 export class Snake {
   constructor(boardCenter) {
     this.direction = 'right';
@@ -9,7 +11,7 @@ export class Snake {
   }
 
   move() {
-    const head = this.body[0];
+    const head = this.head;
     let nextHead;
 
     switch (this.direction) {
@@ -34,19 +36,17 @@ export class Snake {
   }
 
   getDirection(from, to) {
-    if (from.x === to.x) return from.y > to.y ? 'up' : 'down';
-    if (from.y === to.y) return from.x > to.x ? 'left' : 'right';
+    if (from.x === to.x) {
+      return from.y > to.y ? 'up' : 'down';
+    }
+
+    if (from.y === to.y) {
+      return from.x > to.x ? 'left' : 'right';
+    }
   }
 
   setDirection(newDirection) {
-    const opposites = {
-      up: 'down',
-      down: 'up',
-      left: 'right',
-      right: 'left',
-    };
-
-    if (newDirection !== opposites[this.direction]) {
+    if (newDirection !== OPPOSITE_DIRECTIONS[this.direction]) {
       this.direction = newDirection;
     }
   }
@@ -54,5 +54,9 @@ export class Snake {
   grow() {
     const tail = this.body[this.body.length - 1];
     this.body.push({ x: tail.x, y: tail.y });
+  }
+
+  get head() {
+    return this.body[0];
   }
 }

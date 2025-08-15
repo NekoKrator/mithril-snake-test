@@ -7,7 +7,7 @@ export class Collisions {
   }
 
   isWallCollision() {
-    const head = this.snake.body[0];
+    const head = this.snake.head;
 
     return (
       head.x < 0 ||

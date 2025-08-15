@@ -4,6 +4,7 @@ import { Snake } from './snake.js';
 import { Controls } from './controls.js';
 import { Food } from './food.js';
 import { Collisions } from './collisions.js';
+import { GAME_SPEED_MS, GAME_MESSAGES, SCORE } from '../lib/const.js';
 
 let game = null;
 
@@ -48,7 +49,7 @@ class Game {
     this.controls = null;
     this.gameLoop = null;
     this.cells = [];
-    this.speed = 200;
+    this.speed = GAME_SPEED_MS;
     this.food = null;
     this.collisions = null;
   }
@@ -59,7 +60,7 @@ class Game {
     }
 
     const scoreEl = document.getElementById('score');
-    scoreEl.textContent = '0';
+    scoreEl.textContent = SCORE.START.toString();
 
     this.cells = rendererBoard(this.boardConfig.cellsPerRow);
     this.snake = new Snake(this.boardConfig.boardCenter);
@@ -81,9 +82,9 @@ class Game {
       this.gameLoop = null;
 
       const reason = this.collisions.isWallCollision()
-        ? 'You hit the wall!'
-        : 'You hit yourself!';
-      const score = this.snake.body.length - 3;
+        ? GAME_MESSAGES.WALL_COLLISION
+        : GAME_MESSAGES.SELF_COLLISION;
+      const score = this.snake.body.length - SCORE.INITIAL_SNAKE_LENGTH;
 
       showGameOverModal(reason, score);
       return;
@@ -100,13 +101,12 @@ class Game {
   }
 
   checkFoodCollision() {
-    const head = this.snake.body[0];
     const food = this.food.position;
 
-    if (head.x === food.x && head.y === food.y) {
+    if (this.snake.head.x === food.x && this.snake.head.y === food.y) {
       this.snake.grow();
       this.food.spawnAndRender(this.cells);
-      updateScore(1);
+      updateScore(SCORE.INCREMENT);
     }
   }
 
@@ -118,6 +118,8 @@ class Game {
 
     this.controls?.destroy();
     this.controls = null;
+
+    clearBoard(this.cells);
   }
 }
 

@@ -1,3 +1,5 @@
+import { DIRECTION_MAP } from '../lib/const.js';
+
 export class Controls {
   constructor(snake) {
     this.snake = snake;
@@ -6,22 +8,14 @@ export class Controls {
   }
 
   onKeyDown(event) {
-    const directionMap = {
-      ArrowUp: 'up',
-      ArrowDown: 'down',
-      ArrowLeft: 'left',
-      ArrowRight: 'right',
-      KeyW: 'up',
-      KeyS: 'down',
-      KeyA: 'left',
-      KeyD: 'right',
-    };
+    const direction = DIRECTION_MAP[event.code];
 
-    const direction = directionMap[event.code];
-    if (direction) {
-      event.preventDefault();
-      this.snake.setDirection(direction);
+    if (!direction) {
+      return;
     }
+
+    event.preventDefault();
+    this.snake.setDirection(direction);
   }
 
   destroy() {

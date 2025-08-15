@@ -1,4 +1,7 @@
 import { getCellIndex } from '../lib/getCellIndex.js';
+import { CSS_CLASSES } from '../lib/const.js';
+
+const { CELL, HEAD, BODY, FOOD } = CSS_CLASSES;
 
 export function rendererBoard(cellsPerRow) {
   const boardElement = document.querySelector('#game-board');
@@ -13,7 +16,7 @@ export function rendererBoard(cellsPerRow) {
 
   for (let i = 0; i < totalCells; i++) {
     const cell = document.createElement('div');
-    cell.classList.add('game-board__cell');
+    cell.classList.add(CELL);
     boardElement.appendChild(cell);
     cells.push(cell);
   }
@@ -59,21 +62,21 @@ export function renderSnake(snake, cells) {
     const cell = cells[index];
 
     if (i === 0) {
-      cell.classList.add('snake-head');
+      cell.classList.add(HEAD);
     } else {
-      cell.classList.add('snake-body');
+      cell.classList.add(BODY);
     }
   }
 }
 
 export function clearSnake(cells) {
   for (const cell of cells) {
-    cell.classList.remove('snake-head', 'snake-body');
+    cell.classList.remove(HEAD, BODY);
   }
 }
 
 export function clearBoard(cells) {
   for (const cell of cells) {
-    cell.classList.remove('snake-head', 'snake-body', 'food');
+    cell.classList.remove(HEAD, BODY, FOOD);
   }
 }
